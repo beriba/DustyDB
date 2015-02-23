@@ -307,4 +307,10 @@ sub list_all_objects {
     return @objects;
 }
 
+sub get_attribute_map {
+    my $self = shift;
+    my %fields = map { $_ => $self->get_attribute($_) } $self->get_attribute_list;
+    return \%fields;
+}
+
 1;
