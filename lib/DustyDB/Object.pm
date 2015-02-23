@@ -44,11 +44,13 @@ sub init_meta {
 
     Moose->init_meta(%options);
 
-    Moose::Util::MetaRole::apply_metaclass_roles(
-        for_class                 => $options{for_class},
-        metaclass_roles           => [ 'DustyDB::Meta::Class' ],
-        attribute_metaclass_roles => [ 'DustyDB::Meta::Attribute' ],
-        instance_metaclass_roles  => [ 'DustyDB::Meta::Instance' ],
+    Moose::Util::MetaRole::apply_metaroles(
+        for => $options{for_class},
+        class_metaroles => {
+            class => [ 'DustyDB::Meta::Class' ],
+            attribute => [ 'DustyDB::Meta::Attribute' ],
+            instance => [ 'DustyDB::Meta::Instance' ],
+        },
     );
 
     Moose::Util::apply_all_roles($options{for_class}, 'DustyDB::Record');
